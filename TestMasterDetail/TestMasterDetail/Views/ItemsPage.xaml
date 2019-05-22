@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestMasterDetail.Views.ItemsPage"
+              Title="{Binding Title}"
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <StackLayout>
+            <Label Text="MSAL Xamarin Forms Sample" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+            <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <StackLayout x:Name="slUser" IsVisible="False" Padding="5,10">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="DisplayName " FontAttributes="Bold" />
+                    <Label x:Name="lblDisplayName" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="GivenName " FontAttributes="Bold" />
+                    <Label x:Name="lblGivenName" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Surname " FontAttributes="Bold" />
+                    <Label x:Name="lblSurname" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Id " FontAttributes="Bold" />
+                    <Label x:Name="lblId" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="UserPrincipalName " FontAttributes="Bold" />
+                    <Label x:Name="lblUserPrincipalName" />
+                </StackLayout>
+            </StackLayout>
+            <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <Button x:Name="btnSignInSignOut" Text="Sign in" Clicked="OnSignInSignOut" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Text}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
